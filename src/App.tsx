@@ -24,18 +24,6 @@ export default function App() {
   const [toDate, setToDate] = useState<string>('');
   const [summary, setSummary] = useState<CalcSummary | null>(null);
 
-  const predefinedRates = ['0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5'];
-
-  // Helper to convert internal ISO date (YYYY-MM-DD) to display format (DD-MM-YYYY)
-  const formatDisplayDate = (isoString: string) => {
-    if (!isoString) return '';
-    const parts = isoString.split('-');
-    if (parts.length !== 3) return isoString;
-    const [y, m, d] = parts;
-    return `${d}-${m}-${y}`;
-  };
-
-  // EXACT UNTOUCHED CALCULATION LOGIC
   const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
     const p = parseFloat(principalStr);
@@ -148,92 +136,37 @@ export default function App() {
               <input
                 type="number"
                 step="any"
-                list="rate-options"
                 value={rateStr}
                 onChange={(e) => setRateStr(e.target.value)}
                 className="styled-input has-suffix"
-                placeholder="Enter or select rate"
+                placeholder="Enter Rate"
                 required
               />
-              <datalist id="rate-options">
-                {predefinedRates.map((r) => (
-                  <option key={r} value={r} />
-                ))}
-              </datalist>
-              <select
-                className="rate-select-overlay"
-                value={predefinedRates.includes(rateStr) ? rateStr : ''}
-                onChange={(e) => setRateStr(e.target.value)}
-                aria-label="Select Rate"
-              >
-                <option value="" disabled hidden></option>
-                {predefinedRates.map((r) => (
-                  <option key={r} value={r}>
-                    {r}%
-                  </option>
-                ))}
-              </select>
-              <span className="input-suffix">%</span>
+              <span className="input-suffix">% </span>
             </div>
           </div>
 
           <div className="grid-2">
             <div className="form-group">
-              <label className="form-label">FROM DATE</label>
-              <div style={{ position: 'relative', width: '100%' }}>
-                <input
-                  type="text"
-                  readOnly
-                  value={formatDisplayDate(fromDate)}
-                  placeholder="dd-mm-yyyy"
-                  className="styled-input"
-                  style={{ width: '100%', pointerEvents: 'none' }}
-                />
-                <input
-                  type="date"
-                  value={fromDate}
-                  onChange={(e) => setFromDate(e.target.value)}
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    opacity: 0,
-                    cursor: 'pointer'
-                  }}
-                  required
-                />
-              </div>
+              <label className="form-label">From Date</label>
+              <input
+                type="date"
+                value={fromDate}
+                onChange={(e) => setFromDate(e.target.value)}
+                className="styled-input"
+                required
+              />
             </div>
 
             <div className="form-group">
-              <label className="form-label">TO DATE</label>
-              <div style={{ position: 'relative', width: '100%' }}>
-                <input
-                  type="text"
-                  readOnly
-                  value={formatDisplayDate(toDate)}
-                  placeholder="dd-mm-yyyy"
-                  className="styled-input"
-                  style={{ width: '100%', pointerEvents: 'none' }}
-                />
-                <input
-                  type="date"
-                  value={toDate}
-                  onChange={(e) => setToDate(e.target.value)}
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    opacity: 0,
-                    cursor: 'pointer'
-                  }}
-                  required
-                />
-              </div>
+              <label className="form-label">To Date</label>
+              <input
+                type="date"
+                value={toDate}
+                onChange={(e) => setToDate(e.target.value)}
+                className="styled-input"
+                required
+              />
             </div>
           </div>
 
