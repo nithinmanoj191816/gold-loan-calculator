@@ -24,15 +24,6 @@ export default function App() {
   const [toDate, setToDate] = useState<string>('');
   const [summary, setSummary] = useState<CalcSummary | null>(null);
 
-  // Helper to convert internal ISO date (YYYY-MM-DD) to visual format (DD-MM-YYYY)
-  const formatDisplayDate = (isoString: string) => {
-    if (!isoString) return '';
-    const parts = isoString.split('-');
-    if (parts.length !== 3) return isoString;
-    const [y, m, d] = parts;
-    return `${d}-${m}-${y}`;
-  };
-
   const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
     const p = parseFloat(principalStr);
@@ -151,67 +142,31 @@ export default function App() {
                 placeholder="Enter Rate"
                 required
               />
-              <span className="input-suffix">%</span>
+              <span className="input-suffix">% </span>
             </div>
           </div>
 
           <div className="grid-2">
             <div className="form-group">
               <label className="form-label">From Date</label>
-              <div style={{ position: 'relative', width: '100%' }}>
-                <input
-                  type="text"
-                  readOnly
-                  value={formatDisplayDate(fromDate)}
-                  placeholder="dd-mm-yyyy"
-                  className="styled-input"
-                  style={{ width: '100%', pointerEvents: 'none' }}
-                />
-                <input
-                  type="date"
-                  value={fromDate}
-                  onChange={(e) => setFromDate(e.target.value)}
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    opacity: 0,
-                    cursor: 'pointer'
-                  }}
-                  required
-                />
-              </div>
+              <input
+                type="date"
+                value={fromDate}
+                onChange={(e) => setFromDate(e.target.value)}
+                className="styled-input"
+                required
+              />
             </div>
 
             <div className="form-group">
               <label className="form-label">To Date</label>
-              <div style={{ position: 'relative', width: '100%' }}>
-                <input
-                  type="text"
-                  readOnly
-                  value={formatDisplayDate(toDate)}
-                  placeholder="dd-mm-yyyy"
-                  className="styled-input"
-                  style={{ width: '100%', pointerEvents: 'none' }}
-                />
-                <input
-                  type="date"
-                  value={toDate}
-                  onChange={(e) => setToDate(e.target.value)}
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    opacity: 0,
-                    cursor: 'pointer'
-                  }}
-                  required
-                />
-              </div>
+              <input
+                type="date"
+                value={toDate}
+                onChange={(e) => setToDate(e.target.value)}
+                className="styled-input"
+                required
+              />
             </div>
           </div>
 
